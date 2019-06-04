@@ -11,6 +11,7 @@ import datetime
 # =======================================================
 # dropout_list = [1.0, 0.95, 0.9, 0.8, 0.5]
 dropout_list = [1.0, 0.95]
+ticker = 'SPY'
 
 for d in dropout_list:
     tf.reset_default_graph()
