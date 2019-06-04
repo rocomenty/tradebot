@@ -10,7 +10,7 @@ import datetime
 
 # ticker_list = ['MSFT', 'AAPL', 'AMZN', 'FB', 'BRK.B', 'SPY']
 paras_list = [100, 1, 1, 300, 2, 0.001, 1.0, 50, 100]
-ticker_list = ['SPY']
+ticker_list = ['MSFT', 'GOOGL', 'SPY']
 window_sizes = [5, 10, 30, 50, 100]
 
 '''

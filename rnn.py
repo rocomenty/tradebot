@@ -134,9 +134,9 @@ class RNN:
             # =======================================================
             # Different saving path for different purpose (window_length, keep_prob, stride)
             # =======================================================
-            save_path = self.saver.save(sess, './models/demo_model.ckpt')
+            # save_path = self.saver.save(sess, './models/demo_model.ckpt')
             # save_path = self.saver.save(sess, './models/' + self.name + '/' + self.name + '-' + str(self.window_length) + '_model/model.ckpt')
-            # save_path = self.saver.save(sess, './models/' + self.name + '/' + self.name + '-' + str(self.keep_prob) + '_model/model.ckpt')
+            save_path = self.saver.save(sess, './models/' + self.name + '/' + self.name + '-' + str(self.keep_prob) + '_model/model.ckpt')
             # save_path = self.saver.save(sess, './models/' + self.name + '/' + self.name + '-stride-' + str(self.stride) + '_model/model.ckpt')
             print('Model saved in path: %s' % (save_path))
 
@@ -149,15 +149,26 @@ class RNN:
             # =======================================================
             # Different saving path for different purpose (window_length, keep_prob, stride)
             # =======================================================
-            self.saver.restore(sess, './models/demo_model.ckpt')
+            # self.saver.restore(sess, './models/demo_model.ckpt')
             # self.saver.restore(sess, './models/' + self.name + '/' + self.name + '-' + str(self.window_length) + '_model/model.ckpt')
-            # self.saver.restore(sess, './models/' + self.name + '/' + self.name + '-' + str(self.keep_prob) + '_model/model.ckpt')
+            self.saver.restore(sess, './models/' + self.name + '/' + self.name + '-' + str(self.keep_prob) + '_model/model.ckpt')
             # self.saver.restore(sess, './models/' + self.name + '/' + self.name + '-stride-' + str(self.stride) + '_model/model.ckpt')
             print('Model restored')
             actual_test_pred = sess.run(self.final_pred, feed_dict={self.X: test_seq, self.prob: 1.0})
             test_loss = self.loss.eval(feed_dict={self.X: test_seq, self.pred: test_pred, self.prob: 1.0})
             print('final test loss: %.6f' % (test_loss))
             self.visualize(actual_test_pred)
+
+    def predict(self, latest_seq, model_path):
+        self.build_graph()
+        with tf.Session() as sess:
+            self.saver.restore(sess, model_path)
+            print('Model restored for predictions')
+            pred = self.final_pred.eval(feed_dict={self.X: latest_seq, self.prob: 1.0})
+            print('*************************************')
+            print('Latest Predictions: ')
+            print('Given Sequence: ', latest_seq)
+            print('Next Value PREDICTION: ', pred)
 
     def visualize(self, actual_test_pred):
         plt.figure(num=None, dpi=300)
