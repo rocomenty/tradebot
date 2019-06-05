@@ -10,8 +10,13 @@ import datetime
 # Section Used for Dropout keep_prob Exploration
 # =======================================================
 # dropout_list = [1.0, 0.95, 0.9, 0.8, 0.5]
-dropout_list = [1.0, 0.95]
+dropout_list = [0.95]
 ticker = 'SPY'
+
+# sdm = StockDataModel(ticker)
+# all_sequence = sdm.create_sequence(window_length=50, stride=1, normalize=True)
+# rnn_model = RNN([50, 1, 1, 300, 2, 0.001, 0.95, 50, 100, 1], all_sequence, ticker)
+# rnn_model.predict('./models/SPY/SPY-0.95_model/model.ckpt')
 
 for d in dropout_list:
     tf.reset_default_graph()

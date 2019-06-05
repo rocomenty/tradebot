@@ -159,7 +159,10 @@ class RNN:
             print('final test loss: %.6f' % (test_loss))
             self.visualize(actual_test_pred)
 
-    def predict(self, latest_seq, model_path):
+    def predict(self, model_path, latest_seq=None):
+        if latest_seq == None:
+            latest_seq = self.test_seq[-1].reshape([1, 49, 1])
+            print("latest_seq: ", latest_seq.shape)
         self.build_graph()
         with tf.Session() as sess:
             self.saver.restore(sess, model_path)
