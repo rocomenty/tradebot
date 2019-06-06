@@ -43,7 +43,11 @@ class StockDataModel:
         normalized_data = self.data.copy()
         min_max_scaler = preprocessing.MinMaxScaler()
         normalized_data['Adj Close'] = min_max_scaler.fit_transform(self.data['Adj Close'].values.reshape(-1, 1))
+        print('=======================')
         print('Normalized data info: ')
+        print("data min: ", min_max_scaler.data_min_)
+        print("data max: ", min_max_scaler.data_max_)
+        print("data range: ", min_max_scaler.data_range_)
         normalized_data.info()
         return normalized_data.values
 

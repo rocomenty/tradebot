@@ -161,7 +161,7 @@ class RNN:
 
     def predict(self, model_path, latest_seq=None):
         if latest_seq == None:
-            latest_seq = self.test_seq[-1].reshape([1, 49, 1])
+            latest_seq = self.data[-1, 1:, :].reshape([1, 49, 1])
             print("latest_seq: ", latest_seq.shape)
         self.build_graph()
         with tf.Session() as sess:
