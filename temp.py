@@ -13,23 +13,23 @@ import datetime
 dropout_list = [0.95]
 ticker = 'SPY'
 
-sdm = StockDataModel(ticker)
-all_sequence = sdm.create_sequence(window_length=50, stride=1, normalize=True)
-rnn_model = RNN([50, 1, 1, 300, 2, 0.001, 0.95, 50, 100, 1], all_sequence, ticker)
-rnn_model.predict('./models/SPY/SPY-0.95_model/model.ckpt')
+# sdm = StockDataModel(ticker)
+# all_sequence = sdm.create_sequence(window_length=50, stride=1, normalize=True)
+# rnn_model = RNN([50, 1, 1, 300, 2, 0.001, 0.95, 50, 100, 1], all_sequence, ticker)
+# rnn_model.predict('./models/SPY/SPY-0.95_model/model.ckpt')
 
-# for d in dropout_list:
-#     tf.reset_default_graph()
-#     print('******************************')
-#     print('Training: ', ticker, 'with dropout rate ', d)
-#     sdm = StockDataModel(ticker)
-#     all_sequence = sdm.create_sequence(window_length=50, stride=1, normalize=True)
-#     rnn_model = RNN([50, 1, 1, 300, 2, 0.001, d, 50, 100, 1], all_sequence, ticker)
+for d in dropout_list:
+    tf.reset_default_graph()
+    print('******************************')
+    print('Training: ', ticker, 'with dropout rate ', d)
+    sdm = StockDataModel(ticker)
+    all_sequence = sdm.create_sequence(window_length=50, stride=1, normalize=True)
+    rnn_model = RNN([50, 1, 1, 300, 2, 0.001, d, 50, 100, 1], all_sequence, ticker)
 
-#     rnn_model.train()
-#     rnn_model.evaluate()
-#     print('******************************')
-#     print('')
+    rnn_model.train()
+    rnn_model.evaluate()
+    print('******************************')
+    print('')
 
 # =======================================================
 # Section Used for stride Exploration
